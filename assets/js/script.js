@@ -8,8 +8,8 @@ $(document).ready(function(){
         console.log(response);
         var ingredients = [];
         var i = 0;
-        while(response.meal[0].strIngredient[i]!==null) {
-            ingredients.push(response.meals[0].strIngredient+i);
+        while(response.meals[0]["strIngredient"+i]!=="") {
+            ingredients.push(response.meals[0]["strIngredient"+i]);
             i++;
         }
         console.log(ingredients);
