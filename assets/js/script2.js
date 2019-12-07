@@ -18,4 +18,10 @@ $.ajax({
 
     console.log(results);
 
+    // appending the img div 
+
+    $("#foodPic").append(imgFood);
 })
+
+
+
