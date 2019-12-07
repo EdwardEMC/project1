@@ -8,15 +8,15 @@ $(document).ready(function(){
 
     $("#searchBtn").on("click", function(){
         var content = $("#inputText").val();
-        clearAll();
+        clearAll(); //emptying the fields
         request(content);
+        buttonCreate(content);
     });   
 
     $(".addButtons").on("click", function(event){
         event.preventDefault();
-        //emptying the fields
-        clearAll();
         var content = event.target.value;
+        clearAll();
         request(content);
     });
     
@@ -27,7 +27,7 @@ $(document).ready(function(){
         }).then(function(response){
             console.log(response);
             var ingredients = [];
-            var i = 0;
+            var i = 1;
             while(response.meals[0]["strIngredient"+i]!=="") {
                 ingredients.push(response.meals[0]["strIngredient"+i]);
                 i++;
@@ -37,17 +37,20 @@ $(document).ready(function(){
             ingrList(ingredients);
             method(response);
         });
+    }
 
+    //function to create the buttons
+    function buttonCreate(content) {
         var button = $("<button>").text(content);
         button.val(content);
         button.text(content);
         button.attr("id", y);
         button.addClass("btn btn-info");
         $(".addButtons").append(button);
-        y+=1;
+        localStorage.setItem(y, content); //saving the recipe searched to local storage
+        y = y + 1;
         localStorage.setItem("tracker", y);
     }
-
     //function to clear divs after each search
     function clearAll(){
         recipeArea.empty();
@@ -60,13 +63,20 @@ $(document).ready(function(){
             y = 0;
         }
         else {
-            y = localStorage.getItem("tracker");
+            y = parseInt(localStorage.getItem("tracker"));
+        }
+
+        for(i=0; i<y; i++) {
+            var button = $("<button>").text(localStorage.getItem(i));
+            button.val(localStorage.getItem(i));
+            $(".addButtons").append(button);
         }
     }
 
     //function to display name to the title
     function recipeName(response) {
-        recipeTitle.text(response.meals[0].strMeal);
+        var name = $("<h3>").text(response.meals[0].strMeal);
+        recipeTitle.append(name);
     }
 
     //function to create ingredient list
