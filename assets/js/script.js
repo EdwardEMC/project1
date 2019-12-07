@@ -1,12 +1,26 @@
 $(document).ready(function(){
     var recipeArea = $("#recipe");
-    var content = $("#inputText").val();
+    var recipeTitle = $("#recipeTitle");
     var y;
 
     //Checks local storage and sets y to either 0 or the id of the previous button
     checkStorage();
 
     $("#searchBtn").on("click", function(){
+        var content = $("#inputText").val();
+        clearAll();
+        request(content);
+    });   
+
+    $(".addButtons").on("click", function(event){
+        event.preventDefault();
+        //emptying the fields
+        clearAll();
+        var content = event.target.value;
+        request(content);
+    });
+    
+    function request(content){
         $.ajax({
         url:"https://www.themealdb.com/api/json/v1/1/search.php?s="+content,
         METHOD: "GET"
@@ -26,12 +40,19 @@ $(document).ready(function(){
 
         var button = $("<button>").text(content);
         button.val(content);
+        button.text(content);
         button.attr("id", y);
         button.addClass("btn btn-info");
         $(".addButtons").append(button);
-        y=y+1;
+        y+=1;
         localStorage.setItem("tracker", y);
-    });    
+    }
+
+    //function to clear divs after each search
+    function clearAll(){
+        recipeArea.empty();
+        recipeTitle.empty();
+    }
 
     //function to check local storage
     function checkStorage() {
@@ -45,7 +66,7 @@ $(document).ready(function(){
 
     //function to display name to the title
     function recipeName(response) {
-        $("#recipeTitle").text(response.meals[0].strMeal);
+        recipeTitle.text(response.meals[0].strMeal);
     }
 
     //function to create ingredient list
