@@ -1,4 +1,4 @@
-var content = $("#inoutText").val();
+var content = $("#inputText").val();
 var APIKey = "14518866-15b065df23eaa04c7d4ef76d0";
 
 $.ajax({
