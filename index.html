@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Recipe Finder</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -13,23 +13,37 @@
     <script src="assets/js/script2.js"></script>
 </head>
 <body>
-    <div id="header">
-        <p>Recipe Finder</p>
+<div class="body container">
+<div class="content wrap">
+    <div class="header">
+            <img style="display: inline;"" src="assets\images\6irobK5rT.png" alt="knife and fork" 
+            width="70" height="70">
+            <h1 style="display: inline;">Recipe Finder</h1>
+<!-- <div class="navbar">
+      <ul>
+        <li class="navName"></li>
+        <li class="navfont"><a href="">Text</a></li>
+        <li class="navfont"><a href="">Text</a></li>
+        <li class="navfont"><a href="">Test</a></li>  
+      </ul>
+    </div >-->
     </div>
 
-    <div class="main"> 
+    <div class="main container">
+        <br> 
 
         <div class = "searchBar">
-
-            <!--Search button-->
-            <button id="searchBtn">
-                search
-            </button>
-
+            <h3>Type in the recipe you wish to find then click search:</h3>
+            
             <!-- Search input-->
             <input id = "inputText">
         
             </input>
+
+            <!--Search button-->
+            <button id="searchBtn">
+                    search
+                </button>
             
             <!--Button area-->
             <div class = "addButtons">
@@ -47,24 +61,29 @@
         </div>
 
         <div class = "recipeArea">
-
+            <br>
+            <h3>Here is your recipe:</h3>
+            <br>
             <!-- Image -->
             <div id = "foodPic">
                 <img src="" alt="Food Picture"> 
             </div>
+            <br>
 
             <!-- Recipe text area -->
             <div id = "recipe">
-                Recipe text area
+            
             </div>
+            <br>
 
         </div>
 
     </div>
 
-    <div id="footer">
+    <div class="footer">
         <p>Copyright&#9400 Edward, Sri, David 2019</p>  
     </div>
-    
+</div>
+</div>    
 </body>
 </html>
