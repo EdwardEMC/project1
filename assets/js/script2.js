@@ -21,7 +21,7 @@ $(document).ready(function(){
         
             imgFood.attr("src", results);
             
-            imgFood.attr("style", "height: 500px; width: 600px;");
+            // imgFood.attr("style", "height: 500px; width: 600px;");
         
         
             console.log(results);
