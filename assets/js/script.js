@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var recipeArea = $("#recipe");
     var recipeTitle = $("#recipeTitle");
+    var APIKey = "c57cb70d4a7c402fa9d244be4b570632";
     var y;
 
     checkStorage(); //Checks local storage and sets y to either 0 or the id of the previous button
@@ -9,7 +10,7 @@ $(document).ready(function(){
     $("#searchBtn").on("click", function(){
         var content = $("#inputText").val();
         clearAll(); //emptying the fields
-        var queryURL = "https://www.themealdb.com/api/json/v1/1/filter.php?i="+content;
+        var queryURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=10";
         request(content, queryURL);
     });   
 
@@ -17,7 +18,7 @@ $(document).ready(function(){
     $(".addButtons").on("click", function(event){
         event.preventDefault();
         var content = event.target.value;
-        var queryURL = "https://www.themealdb.com/api/json/v1/1/search.php?s="+content;
+        var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
         clearAll();
         request(content, queryURL);
     });
@@ -25,9 +26,11 @@ $(document).ready(function(){
     //on click to search one of the recipes added
     recipeArea.on("click", function(event){
         event.preventDefault();
+        recipe = event.target.innerText;
         var content = event.target.value;
-        var queryURL = "https://www.themealdb.com/api/json/v1/1/search.php?s="+content;
+        var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
         request(content, queryURL);
+        console.log(recipe);
         clearAll();
     });
     
@@ -40,15 +43,15 @@ $(document).ready(function(){
             console.log(response);
             var i = 0; //reset the counter for every request
 
-            if(queryURL=="https://www.themealdb.com/api/json/v1/1/filter.php?i="+content) {
+            if(queryURL=="https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=10") {
                 var meals = [];
-                while(i<response.meals.length) {
-                    meals.push(response.meals[i].strMeal);
+                while(i<response.length) {
+                    meals.push(response[i].title);
                     i++; 
                 }
                 for(x=0; x<meals.length; x++) {
                     var button = $("<button>").text(meals[x]);
-                    button.val(meals[x]);
+                    button.val(response[x].id);
                     button.attr("id", y);
                     button.addClass("btn btn-info"); //change to bulma css---------------------------------------------------------------------
                     recipeArea.append(button);
@@ -66,11 +69,11 @@ $(document).ready(function(){
     //function to display recipe
     function displayRecipe(response, content) {   
         var ingredients = [];
-        var i = 1;
-        while(response.meals[0]["strIngredient"+i]!=="") {
-            ingredients.push(response.meals[0]["strIngredient"+i]);
-            i++;
+        
+        for(x=0; x<response.extendedIngredients.length; x++) {
+            ingredients.push(response.extendedIngredients[x].name);
         }
+
         buttonCreate(content);
         recipeName(response);
         ingrList(ingredients);
@@ -81,16 +84,18 @@ $(document).ready(function(){
     function buttonCreate(content) {
         var alreadyButtons = [];
         for(x=0; x<y; x++) {
-            alreadyButtons.push(localStorage.getItem(x));
+            var loadBtn = JSON.parse(localStorage.getItem(x))
+            alreadyButtons.push(loadBtn.id);
         }
         //if condition to check if the button is already there
         if(!alreadyButtons.includes(content)) {
-            var button = $("<button>").text(content);
+            var saveBtn = {"id":content,"text":recipe};
+            var button = $("<button>").text(recipe);
             button.val(content);
             button.attr("id", y);
             button.addClass("btn btn-info"); //change to bulma css---------------------------------------------------------------------
             $(".addButtons").append(button);
-            localStorage.setItem(y, content); //saving the recipe searched to local storage
+            localStorage.setItem(y, JSON.stringify(saveBtn)); //saving the recipe searched to local storage
             y = y + 1;
             localStorage.setItem("tracker", y); 
         }
@@ -109,17 +114,18 @@ $(document).ready(function(){
         else {
             y = parseInt(localStorage.getItem("tracker"));
         }
-
+        
         for(i=0; i<y; i++) {
-            var button = $("<button>").text(localStorage.getItem(i));
-            button.val(localStorage.getItem(i));
+            var loadBtn = JSON.parse(localStorage.getItem(i))
+            var button = $("<button>").text(loadBtn.text);
+            button.val(loadBtn.id);
             $(".addButtons").append(button);
         }
     }
 
     //function to display name to the title
     function recipeName(response) {
-        var name = $("<h3>").text(response.meals[0].strMeal);
+        var name = $("<h3>").text(response.title); 
         recipeTitle.append(name);
     }
 
@@ -136,8 +142,7 @@ $(document).ready(function(){
     //function to attach the method and links
     function method(response) {
         var instructions = $("<h3>").text("Instructions");
-        var method = $("<p>").text(response.meals[0].strInstructions);
-
+        var method = $("<ul>").text(response.instructions);
         recipeArea.append(instructions, method);
     }
 })
