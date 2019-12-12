@@ -65,7 +65,7 @@ $(document).ready(function(){
                     var button = $("<button>").text(meals[z]);
                     button.val(response[x].id);
                     button.attr("id", y);
-                    button.addClass("btn btn-info"); //change to bulma css---------------------------------------------------------------------
+                    button.addClass("button is-info"); //change to bulma css---------------------------------------------------------------------
                     recipeArea.append(button);
                 }
             }
@@ -103,7 +103,7 @@ $(document).ready(function(){
             var button = $("<button>").text(recipe);
             button.val(content);
             button.attr("id", y);
-            button.addClass("btn btn-info"); //change to bulma css---------------------------------------------------------------------
+            button.addClass("button is-info"); //change to bulma css---------------------------------------------------------------------
             $(".addButtons").append(button);
             localStorage.setItem(y, JSON.stringify(saveBtn)); //saving the recipe searched to local storage
             y = y + 1;
