@@ -8,10 +8,15 @@
     margin: auto;
   }
 
-
+html, body {
+    height: 100%;
+}
  
 
 body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     font-family: "Comic Sans MS", cursive, san serif;
 }
 
@@ -26,7 +31,8 @@ body {
 }
 
 .footer {
-    position: fixed;
+    flex-shrink: 0;
+    height: 50px;
     width: 100%;
     bottom: 0;
     padding: 5px;

@@ -17,21 +17,29 @@
     <header class="header">
         <h1>Fantastic Recipe Finder<h1/>
         <!--<div class = "searchBar">-->
-                <h3>Type in the recipe you wish to find then click search:</h3>
+                <h3>Type in an ingredient for the recipe you wish to find... then click search:</h3>
                 <!-- Search input-->
                 <input id = "inputText">
                 </input>
                 <!--Search button-->
                 <button id="searchBtn">
                         search
-                </button>      
+                </button> 
+                <button id="clear">clear screen</button>     
         <!--</div>-->  
     </header>
+     <!--Button area-->
+     <div class = "addButtons"></div>
+     <div id="foodPic"></div>
     <div class="main">
-            <h3 align="left" style=color:#f76134>Your recipe:</h3>
+            <h3 id = "recipeTitle" style=color:#f76134>Your recipe:</h3>
+    
             <hr>
-            <p><img src="assets\images\char-kuey-teow (1).jpg" alt="Image of kuey teow" style="width:170px;margin-right:15px;">
-                Recreate the ‘wok hei’ at hawker stalls
+            <div id = "recipe">
+            
+            <img src="assets\images\char-kuey-teow (1).jpg" alt="Image of kuey teow" style="width:170px;margin-right:15px;">
+            <p>   
+            Recreate the ‘wok hei’ at hawker stalls
                 ‘Wok hei’ means the breathe of the wok, in English. It refers to the hot air produced from the heat
                 in a wok that gives the extra flavour to Chinese stir-fry dishes. With char kuey teow, you need to
                 stir-fry the noodles at the highest heat. Using a cast iron wok would be the best as it captures
@@ -46,39 +54,15 @@
                 professional. I learned that the noodles turned soggy when too much sauce is added all at once.
             </p>
           </div>
-
-        <!--Search button-->
-        <div id="searchBtn">
-       
-        </div> 
-
-        <!-- Search input-->
-        <input id = "inputText">
-
-        </input>
-    
-        <!--Button area-->
-        <div class = "addButtons">
-
-        <div class = "searchBar">
-            <h3>Type in the recipe you wish to find then click search:</h3>
-            
-            <!-- Search input-->
-            <input id = "inputText">
-        
-            </input>
-
-            <!--Search button-->
-            <button id="searchBtn">
-                    search
-                </button>
-            
-            <!--Button area-->
-            <div class = "addButtons">
-            
-            </div>
-        
         </div>
+
+        
+
+       
+    
+       
+
+        
 
     <!--<main class="main container">
         <h1>some text</h1>
