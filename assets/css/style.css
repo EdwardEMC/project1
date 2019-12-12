@@ -1,12 +1,17 @@
 .header {
     background-color: rgb(231, 247, 152);
     font-family: "Comic Sans MS", cursive, san serif;
+    font-size: 120%;
     text-align: center;
     width: 80%;
     padding: 10px;
     border-radius:15px;
     margin: auto;
   }
+
+h1 {
+    font-size: 50px;
+}
 
 html, body {
     height: 100%;
@@ -28,6 +33,7 @@ body {
     margin-right: auto;
     margin-top: 20px;
     background: #ffffff;
+    opacity: 0.9;
 }
 
 .footer {
