@@ -1,24 +1,28 @@
 .header {
     background-color: rgb(231, 247, 152);
+    font-family: "Comic Sans MS", cursive, san serif;
     text-align: center;
-    padding: 20px;
+    width: 80%;
+    padding: 10px;
+    border-radius:15px;
+    margin: auto;
   }
 
+
+ 
+
 body {
-    font-family: "san-serif", "verdana";
+    font-family: "Comic Sans MS", cursive, san serif;
 }
 
-.content wrap {
-    padding-bottom: 12px;
-}
 
-.main container {
-  padding:20px;
-  width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  background: #faf4f4;
+.main{
+    padding:20px;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background: #ffffff;
 }
 
 .footer {
