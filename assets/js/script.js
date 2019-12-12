@@ -3,24 +3,35 @@ $(document).ready(function(){
     var recipeTitle = $("#recipeTitle");
     var APIKey = "c57cb70d4a7c402fa9d244be4b570632";
     var y;
+    var offset = offsetNum();
 
     checkStorage(); //Checks local storage and sets y to either 0 or the id of the previous button
 
     //on click on the search input to search for an ingredient
     $("#searchBtn").on("click", function(){
+        event.preventDefault();
         var content = $("#inputText").val();
         clearAll(); //emptying the fields
-        var queryURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=10";
+        var queryURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=90";
         request(content, queryURL);
     });   
+
+    //on click event so enter can be used as a search function as well as click
+    $("#inputText").keypress(function(e) {
+        if(e.which == 13) {
+            $("#searchBtn").click();
+        }
+    });
 
     //on click to search the saved search buttons
     $(".addButtons").on("click", function(event){
         event.preventDefault();
         var content = event.target.value;
-        var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
-        clearAll();
-        request(content, queryURL);
+        if(content!==undefined) { //detects if clicking a button vs clicking blank space
+            var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
+            clearAll();
+            request(content, queryURL);
+        }
     });
 
     //on click to search one of the recipes added
@@ -30,7 +41,6 @@ $(document).ready(function(){
         var content = event.target.value;
         var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
         request(content, queryURL);
-        console.log(recipe);
         clearAll();
     });
     
@@ -43,14 +53,16 @@ $(document).ready(function(){
             console.log(response);
             var i = 0; //reset the counter for every request
 
-            if(queryURL=="https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=10") {
+            if(queryURL=="https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=90") {
                 var meals = [];
-                while(i<response.length) {
+                var i = offset;
+                
+                while(i<offset+10) { //get only 10 results from the offset value
                     meals.push(response[i].title);
                     i++; 
                 }
-                for(x=0; x<meals.length; x++) {
-                    var button = $("<button>").text(meals[x]);
+                for(x=offset, z=0; x<(offset+meals.length); x++, z++) {
+                    var button = $("<button>").text(meals[z]);
                     button.val(response[x].id);
                     button.attr("id", y);
                     button.addClass("btn btn-info"); //change to bulma css---------------------------------------------------------------------
@@ -69,11 +81,9 @@ $(document).ready(function(){
     //function to display recipe
     function displayRecipe(response, content) {   
         var ingredients = [];
-        
         for(x=0; x<response.extendedIngredients.length; x++) {
             ingredients.push(response.extendedIngredients[x].name);
         }
-
         buttonCreate(content);
         recipeName(response);
         ingrList(ingredients);
@@ -144,5 +154,10 @@ $(document).ready(function(){
         var instructions = $("<h3>").text("Instructions");
         var method = $("<ul>").text(response.instructions);
         recipeArea.append(instructions, method);
+    }
+
+    //function to create randmised offset, so different recipes show up
+    function offsetNum() {
+        return Math.floor(Math.random()*80);
     }
 })
