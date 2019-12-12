@@ -22,7 +22,7 @@ $(document).ready(function () {
                 imgFood.addClass("container");
                 imgFood.attr("src", results);
 
-                // imgFood.attr("style", "height: 500px; width: 600px;");
+                imgFood.attr("style", "margin-left:auto; margin-right:auto; display: block; width:50%;");
 
 
                 console.log(results);
@@ -55,7 +55,7 @@ $(document).ready(function () {
                 var imgFood = $("<img>");
 
                 imgFood.attr("src", results);
-
+                imgFood.attr("style", "margin-left:auto; margin-right:auto; display: block; width:50%;");
 
                 console.log(results);
 
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
         localStorage.clear();
         $(".addButtons").empty();
-
+        location.reload();
 
     });
 
