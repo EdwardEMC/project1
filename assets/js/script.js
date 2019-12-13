@@ -3,12 +3,11 @@ $(document).ready(function(){
     var recipeTitle = $("#recipeTitle");
     var APIKey = "9ddf30e43c5a4cc697a9fc839fec69b2";
     var y;
-    var offset = offsetNum();
 
     checkStorage(); //Checks local storage and sets y to either 0 or the id of the previous button
 
     //on click on the search input to search for an ingredient
-    $("#searchBtn").on("click", function(){
+    $("#searchBtn").on("click", function() {
         event.preventDefault();
         var content = $("#inputText").val();
         clearAll(); //emptying the fields
@@ -24,7 +23,7 @@ $(document).ready(function(){
     });
 
     //on click to search the saved search buttons
-    $(".addButtons").on("click", function(event){
+    $(".addButtons").on("click", function(event) {
         event.preventDefault();
         var content = event.target.value;
         if(content!==undefined) { //detects if clicking a button vs clicking blank space
@@ -35,29 +34,28 @@ $(document).ready(function(){
     });
 
     //on click to search one of the recipes added
-    recipeArea.on("click", function(event){
+    recipeArea.on("click", function(event) {
         event.preventDefault();
         recipe = event.target.innerText;
         var content = event.target.value;
-        var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
-        request(content, queryURL);
-        clearAll();
+        if(content) {//condition to check if clicking a button and not just the recipe area
+            var queryURL = "https://api.spoonacular.com/recipes/"+content+"/information?apiKey="+APIKey;
+            request(content, queryURL);
+            clearAll();
+        }
     });
     
     //function containing the ajax request
-    function request(content, queryURL){
+    function request(content, queryURL) {
         $.ajax({
         url: queryURL,
         METHOD: "GET"
-        }).then(function(response){
-            console.log(response);
-            var i = 0; //reset the counter for every request
-
+        }).then(function(response) {
+            var offset = offsetNum();
             if(queryURL=="https://api.spoonacular.com/recipes/findByIngredients?apiKey="+APIKey+"&ingredients="+content+"&number=90") {
                 var meals = [];
                 var i = offset;
-                
-                while(i<offset+10) { //get only 10 results from the offset value
+                while(i<offset+10) { //get only 10 results onwards from the offset value
                     meals.push(response[i].title);
                     i++; 
                 }
@@ -95,11 +93,10 @@ $(document).ready(function(){
     function buttonCreate(content) {
         var alreadyButtons = [];
         for(x=0; x<y; x++) {
-            var loadBtn = JSON.parse(localStorage.getItem(x))
+            var loadBtn = JSON.parse(localStorage.getItem(x));
             alreadyButtons.push(loadBtn.id);
         }
-        //if condition to check if the button is already there
-        if(!alreadyButtons.includes(content)) {
+        if(!alreadyButtons.includes(content)) { //if condition to check if the button is already there
             var saveBtn = {"id":content,"text":recipe};
             var button = $("<button>").text(recipe);
             button.val(content);
@@ -112,8 +109,9 @@ $(document).ready(function(){
             localStorage.setItem("tracker", y); 
         }
     }
+
     //function to clear divs after each search
-    function clearAll(){
+    function clearAll() {
         recipeArea.empty();
         recipeTitle.empty();
     }
@@ -128,7 +126,7 @@ $(document).ready(function(){
         }
         
         for(i=0; i<y; i++) {
-            var loadBtn = JSON.parse(localStorage.getItem(i))
+            var loadBtn = JSON.parse(localStorage.getItem(i));
             var button = $("<button>").text(loadBtn.text);
             button.val(loadBtn.id);
             button.addClass("button is-info");
@@ -168,4 +166,4 @@ $(document).ready(function(){
     function offsetNum() {
         return Math.floor(Math.random()*80);
     }
-})
+});
