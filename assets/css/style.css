@@ -6,7 +6,7 @@
     width: 80%;
     padding: 10px;
     border-radius:15px;
-    margin: auto;
+    margin: auto auto 10px auto;
   }
 
 h1 {
@@ -15,32 +15,39 @@ h1 {
 
 html, body {
     height: 100%;
+    margin: 0;
+    overflow: auto;
 }
  
 
 body {
-    margin: 0;
+    background-image: url("../images/food-background_with-various-tasty-fresh-ingredients.jpg");
     display: flex;
     flex-direction: column;
     font-family: "Comic Sans MS", cursive, san serif;
 }
 
+#inputText {
+    line-height: 35px;
+}
+
 
 .main{
+    flex:1 0 auto;
     padding:20px;
     width: 960px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #ffffff;
     opacity: 0.9;
 }
 
 .footer {
+    margin-top: 10px;
     flex-shrink: 0;
     height: 50px;
     width: 100%;
-    bottom: 0;
     padding: 5px;
     background-color: rgb(231, 247, 152);
     text-align: center;

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var recipeArea = $("#recipe");
     var recipeTitle = $("#recipeTitle");
-    var APIKey = "c57cb70d4a7c402fa9d244be4b570632";
+    var APIKey = "9ddf30e43c5a4cc697a9fc839fec69b2";
     var y;
     var offset = offsetNum();
 
@@ -65,7 +65,8 @@ $(document).ready(function(){
                     var button = $("<button>").text(meals[z]);
                     button.val(response[x].id);
                     button.attr("id", y);
-                    button.addClass("button is-info"); //change to bulma css---------------------------------------------------------------------
+                    button.attr("style", "margin: 5px;");
+                    button.addClass("button is-success");
                     recipeArea.append(button);
                 }
             }
@@ -73,7 +74,7 @@ $(document).ready(function(){
                 displayRecipe(response, content);
             }   
         }).fail(function() { //Adding a function if the ajax request fails
-            recipeArea.text("There is no recipe available with that name.");
+            recipeTitle.text("There is no recipe available with that name.");
             return;
         });
     }
@@ -103,7 +104,8 @@ $(document).ready(function(){
             var button = $("<button>").text(recipe);
             button.val(content);
             button.attr("id", y);
-            button.addClass("button is-info"); //change to bulma css---------------------------------------------------------------------
+            button.attr("style", "margin: 5px;");
+            button.addClass("button is-info");
             $(".addButtons").append(button);
             localStorage.setItem(y, JSON.stringify(saveBtn)); //saving the recipe searched to local storage
             y = y + 1;
@@ -129,6 +131,8 @@ $(document).ready(function(){
             var loadBtn = JSON.parse(localStorage.getItem(i))
             var button = $("<button>").text(loadBtn.text);
             button.val(loadBtn.id);
+            button.addClass("button is-info");
+            button.attr("style", "margin: 0 5px 10px 5px;");
             $(".addButtons").append(button);
         }
     }
@@ -141,19 +145,23 @@ $(document).ready(function(){
 
     //function to create ingredient list
     function ingrList(ingredients) {
+        var ingredientsTitle = $("<h3>").text("Ingredient List");
+        ingredientsTitle.attr("style", "font-size: 24px; color: black;");
         var ingredientList = $("<ul>");
         for(i=0; i<ingredients.length; i++) {
             var ingredient = $("<li>").text(ingredients[i]);
             ingredientList.append(ingredient);
         }
-        recipeArea.append(ingredientList);
+        recipeArea.append(ingredientsTitle, ingredientList);
     }
 
     //function to attach the method and links
     function method(response) {
+        var lineBreak = $("<br>");
         var instructions = $("<h3>").text("Instructions");
+        instructions.attr("style", "font-size: 24px; color: black;");
         var method = $("<ul>").text(response.instructions);
-        recipeArea.append(instructions, method);
+        recipeArea.append(lineBreak, instructions, method);
     }
 
     //function to create randmised offset, so different recipes show up

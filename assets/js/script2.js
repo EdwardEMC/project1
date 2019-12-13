@@ -22,7 +22,7 @@ $(document).ready(function () {
                 imgFood.addClass("container");
                 imgFood.attr("src", results);
 
-                imgFood.attr("style", "margin-left:auto; margin-right:auto; display: block; width:50%;");
+                imgFood.attr("style", "margin-left:auto; margin-right:auto; display: block; width:50%; margin-bottom: 10px;");
 
 
                 console.log(results);
