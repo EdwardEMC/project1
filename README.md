@@ -40,3 +40,6 @@ stackoverflow.com\
 w3school.com\
 spoonacular.com\
 pixabay.com
+
+# Deployed Link:
+https://edwardemc.github.io/project1/
